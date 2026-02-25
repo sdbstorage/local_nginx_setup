@@ -1,0 +1,24 @@
+services:
+  nginx:
+    image: nginx
+    container_name: nginx_nitro
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./certs:/etc/nginx/ssl:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./.htpasswd:/etc/nginx/.htpasswd:ro
+      - ./static:/static:ro
+      - ./includes:/includes:ro
+      - ./error_pages:/error_pages:ro
+    environment:
+      - TZ=Asia/Singapore
+    networks:
+      - nitro
+
+
+networks:
+  nitro:
+    name: nitro
